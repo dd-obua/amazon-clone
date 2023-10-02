@@ -77,8 +77,8 @@ const addToCart = pdtId => {
   const pdtQnty = Number(select(`.pdt-qnty-${pdtId}`).value);
 
   let matchingItem;
-  cart.forEach(item => {
-    if (item.pdtId === pdtId) matchingItem = item;
+  cart.forEach(cartItem => {
+    if (cartItem.pdtId === pdtId) matchingItem = cartItem;
   });
 
   if (matchingItem) matchingItem.pdtQnty += pdtQnty;
