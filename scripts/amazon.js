@@ -1,3 +1,6 @@
+import { cart } from '../data/cart.js';
+import { products } from '../data/products.js';
+
 const select = selector => document.querySelector(selector);
 const selectAll = selector => document.querySelectorAll(selector);
 const mainPdtsContainer = select('.products-grid');
@@ -84,7 +87,7 @@ const addToCart = pdtId => {
   updateCartQnty(pdtQnty);
 };
 
-showAddedMsg = pdtId => {
+const showAddedMsg = pdtId => {
   // Display message
   const msgDiv = select(`.msg-div-${pdtId}`);
   msgDiv.classList.add('visible');
