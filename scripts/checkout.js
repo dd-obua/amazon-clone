@@ -14,13 +14,13 @@ cart.forEach(cartItem => {
   });
 
   cartSummaryHTML += `
-    <article class="cart-item-container">
+    <article class="cart-item-container" id="container-${matchingPdt.id}">
       <div class="delivery-date">Delivery date: Tuesday, June 21</div>
 
       <div class="cart-item-details-grid">
         <img
-          class="product-image"
-          src="${matchingPdt.image}"
+          class="product-image" 
+          src="${matchingPdt.image}"  
         />
 
         <div class="cart-item-details">
@@ -98,5 +98,8 @@ deleteLink.forEach(link => {
   link.addEventListener('click', () => {
     const { pdtId } = link.dataset;
     removeFromCart(pdtId);
+
+    const container = select(`#container-${pdtId}`);
+    container.remove();
   });
 });
