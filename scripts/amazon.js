@@ -64,6 +64,23 @@ const btns = selectAll('.add-to-cart-button');
 let pdtCount = 0;
 let msgTimeouts = {};
 
+const addToCart = pdtId => {
+  const pdtQnty = Number(select(`.pdt-qnty-${pdtId}`).value);
+
+  let matchingItem;
+  cart.forEach(item => {
+    if (item.pdtId === pdtId) matchingItem = item;
+  });
+
+  if (matchingItem) matchingItem.pdtQnty += pdtQnty;
+  else cart.push({ pdtId, pdtQnty });
+
+  // Update product count
+  pdtCount += pdtQnty;
+  const cartQntyElem = select('.cart-quantity');
+  cartQntyElem.textContent = pdtCount;
+};
+
 showAddedMsg = pdtId => {
   // Display message
   const msgDiv = select(`.msg-div-${pdtId}`);
@@ -86,21 +103,7 @@ btns.forEach(btn => {
   btn.addEventListener('click', () => {
     // Update cart
     const { pdtId } = btn.dataset;
-    const pdtQnty = Number(select(`.pdt-qnty-${pdtId}`).value);
-
-    let matchingItem;
-    cart.forEach(item => {
-      if (item.pdtId === pdtId) matchingItem = item;
-    });
-
-    if (matchingItem) matchingItem.pdtQnty += pdtQnty;
-    else cart.push({ pdtId, pdtQnty });
-
-    // Update product count
-    pdtCount += pdtQnty;
-    const cartQntyElem = select('.cart-quantity');
-    cartQntyElem.textContent = pdtCount;
-
+    addToCart(pdtId);
     showAddedMsg(pdtId);
   });
 });
