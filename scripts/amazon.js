@@ -1,6 +1,7 @@
 import { select, selectAll } from './select.js';
 import { cart, addToCart } from '../data/cart.js';
 import { products } from '../data/products.js';
+import { formatCurrency } from './utils/money.js';
 
 const mainPdtsContainer = select('.products-grid');
 
@@ -28,7 +29,7 @@ products.forEach(pdt => {
         <div class="product-rating-count link-primary">${pdt.rating.count}</div>
       </div>
 
-      <div class="product-price">$${(pdt.priceCents / 100).toFixed(2)}</div>
+      <div class="product-price">$${formatCurrency(pdt.priceCents)}</div>
 
       <div class="product-quantity-container">
         <select class="pdt-qnty-${pdt.id}">
