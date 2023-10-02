@@ -1,11 +1,12 @@
 import { select } from '../scripts/select.js';
 
-export let cart = [
-  { pdtId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6', pdtQnty: 2 },
-  { pdtId: '15b6fc6f-327a-4ec4-896f-486349e85a3d', pdtQnty: 1 },
-];
+export let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
 let pdtCount = 0;
+
+const saveToStorage = () => {
+  localStorage.setItem('cart', JSON.stringify(cart));
+};
 
 const updateCartQnty = pdtQnty => {
   pdtCount += pdtQnty;
@@ -24,10 +25,14 @@ export const addToCart = pdtId => {
   if (matchingItem) matchingItem.pdtQnty += pdtQnty;
   else cart.push({ pdtId, pdtQnty });
 
+  saveToStorage();
+
   updateCartQnty(pdtQnty);
 };
 
 export const removeFromCart = pdtId => {
   const newCart = cart.filter(cartItem => pdtId !== cartItem.pdtId);
   cart = newCart;
+
+  saveToStorage();
 };
