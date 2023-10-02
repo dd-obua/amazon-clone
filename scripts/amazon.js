@@ -64,6 +64,12 @@ const btns = selectAll('.add-to-cart-button');
 let pdtCount = 0;
 let msgTimeouts = {};
 
+const updatePdtCount = pdtQnty => {
+  pdtCount += pdtQnty;
+  const cartQntyElem = select('.cart-quantity');
+  cartQntyElem.textContent = pdtCount;
+};
+
 const addToCart = pdtId => {
   const pdtQnty = Number(select(`.pdt-qnty-${pdtId}`).value);
 
@@ -75,10 +81,7 @@ const addToCart = pdtId => {
   if (matchingItem) matchingItem.pdtQnty += pdtQnty;
   else cart.push({ pdtId, pdtQnty });
 
-  // Update product count
-  pdtCount += pdtQnty;
-  const cartQntyElem = select('.cart-quantity');
-  cartQntyElem.textContent = pdtCount;
+  updatePdtCount(pdtQnty);
 };
 
 showAddedMsg = pdtId => {
@@ -101,7 +104,6 @@ showAddedMsg = pdtId => {
 
 btns.forEach(btn => {
   btn.addEventListener('click', () => {
-    // Update cart
     const { pdtId } = btn.dataset;
     addToCart(pdtId);
     showAddedMsg(pdtId);
