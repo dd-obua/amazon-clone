@@ -64,7 +64,7 @@ const btns = selectAll('.add-to-cart-button');
 let pdtCount = 0;
 let msgTimeouts = {};
 
-const updatePdtCount = pdtQnty => {
+const updateCartQnty = pdtQnty => {
   pdtCount += pdtQnty;
   const cartQntyElem = select('.cart-quantity');
   cartQntyElem.textContent = pdtCount;
@@ -81,7 +81,7 @@ const addToCart = pdtId => {
   if (matchingItem) matchingItem.pdtQnty += pdtQnty;
   else cart.push({ pdtId, pdtQnty });
 
-  updatePdtCount(pdtQnty);
+  updateCartQnty(pdtQnty);
 };
 
 showAddedMsg = pdtId => {
