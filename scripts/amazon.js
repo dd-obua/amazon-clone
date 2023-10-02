@@ -1,7 +1,6 @@
 import { select, selectAll } from './select.js';
-import { cart } from '../data/cart.js';
+import { cart, addToCart } from '../data/cart.js';
 import { products } from '../data/products.js';
-import { addToCart } from '../data/cart.js';
 
 const mainPdtsContainer = select('.products-grid');
 
