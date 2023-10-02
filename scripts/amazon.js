@@ -1,8 +1,8 @@
+import { select, selectAll } from './select.js';
 import { cart } from '../data/cart.js';
 import { products } from '../data/products.js';
+import { addToCart } from '../data/cart.js';
 
-const select = selector => document.querySelector(selector);
-const selectAll = selector => document.querySelectorAll(selector);
 const mainPdtsContainer = select('.products-grid');
 
 let pdtsHTML = '';
@@ -64,28 +64,7 @@ mainPdtsContainer.innerHTML = pdtsHTML;
 
 // Add products to cart
 const btns = selectAll('.add-to-cart-button');
-let pdtCount = 0;
 let msgTimeouts = {};
-
-const updateCartQnty = pdtQnty => {
-  pdtCount += pdtQnty;
-  const cartQntyElem = select('.cart-quantity');
-  cartQntyElem.textContent = pdtCount;
-};
-
-const addToCart = pdtId => {
-  const pdtQnty = Number(select(`.pdt-qnty-${pdtId}`).value);
-
-  let matchingItem;
-  cart.forEach(cartItem => {
-    if (cartItem.pdtId === pdtId) matchingItem = cartItem;
-  });
-
-  if (matchingItem) matchingItem.pdtQnty += pdtQnty;
-  else cart.push({ pdtId, pdtQnty });
-
-  updateCartQnty(pdtQnty);
-};
 
 const showAddedMsg = pdtId => {
   // Display message
