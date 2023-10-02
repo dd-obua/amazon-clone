@@ -64,6 +64,24 @@ const btns = selectAll('.add-to-cart-button');
 let pdtCount = 0;
 let msgTimeouts = {};
 
+showAddedMsg = pdtId => {
+  // Display message
+  const msgDiv = select(`.msg-div-${pdtId}`);
+  msgDiv.classList.add('visible');
+
+  // Clear any previous timout
+  const previousTimeoutId = msgTimeouts[pdtId];
+  if (previousTimeoutId) clearTimeout(previousTimeoutId);
+
+  // Set new timeout for hidding the message
+  const timeoutId = setTimeout(() => {
+    msgDiv.classList.remove('visible');
+  }, 2000);
+
+  // Store new timeout id
+  msgTimeouts[pdtId] = timeoutId;
+};
+
 btns.forEach(btn => {
   btn.addEventListener('click', () => {
     // Update cart
@@ -83,20 +101,6 @@ btns.forEach(btn => {
     const cartQntyElem = select('.cart-quantity');
     cartQntyElem.textContent = pdtCount;
 
-    // display message
-    const msgDiv = select(`.msg-div-${pdtId}`);
-    msgDiv.classList.add('visible');
-
-    // Clear any previous timout
-    const previousTimeoutId = msgTimeouts[pdtId];
-    if (previousTimeoutId) clearTimeout(previousTimeoutId);
-
-    // Set new timeout for hidding the message
-    const timeoutId = setTimeout(() => {
-      msgDiv.classList.remove('visible');
-    }, 2000);
-
-    // Store new timeout id
-    msgTimeouts[pdtId] = timeoutId;
+    showAddedMsg(pdtId);
   });
 });
