@@ -4,9 +4,7 @@ export let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
 let pdtCount = 0;
 
-const saveToStorage = () => {
-  localStorage.setItem('cart', JSON.stringify(cart));
-};
+const saveToStorage = () => localStorage.setItem('cart', JSON.stringify(cart));
 
 const updateCartQnty = pdtQnty => {
   pdtCount += pdtQnty;
